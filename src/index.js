@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+import os from 'node:os';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 inquirer.prompt([
     {
@@ -19,5 +20,12 @@ inquirer.prompt([
 ]).then(answers => {
     let gitUrl = "\u56FD\u5185\u8DEF\u7EBF\u4E0B\u8F7D\u6A21\u677F" /* Type.domestic */ === answers.url ? 'https://gitee.com/chinafaker/nuxt-demo.git' : 'https://github.com/message163/nuxt-template.git';
     execSync(`git clone -b main ${gitUrl} ${answers.name}`);
-    execSync(`cd ${answers.name} && rd /S/Q .git`);
+    switch (os.platform()) {
+        case 'win32':
+            execSync(`cd ${answers.name} && rd /S/Q .git`);
+            break;
+        default:
+            execSync(`cd ${answers.name} && rm -rf .git`);
+            break;
+    }
 });
