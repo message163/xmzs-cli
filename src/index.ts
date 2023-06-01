@@ -20,15 +20,10 @@ inquirer.prompt([
     {
         type: 'list',
         name: 'url',
-        message: '请选择您喜欢的颜色:',
+        message: '请选择下载模板的路线',
         choices: [Type.domestic, Type.international],
     },
 ]).then(answers => {
-    //execSync(`mkdir ${answers.name}`)
-    // execSync(`mkdir ${answers.name}`)
-    
-    // execSync(`cd ${answers.name}`)
-    //let currentPath = process.cwd()
     let gitUrl = Type.domestic === answers.url ? 'https://gitee.com/chinafaker/nuxt-demo.git' : 'https://github.com/message163/nuxt-template.git'
     execSync(`git clone -b main ${gitUrl} ${answers.name}`)
     execSync(`cd ${answers.name} && rd /S/Q .git`)

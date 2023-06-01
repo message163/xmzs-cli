@@ -1,6 +1,6 @@
 {
   "name": "xmzs-cli",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -11,9 +11,15 @@
   "bin": {
     "xm-cli": "./src/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nuxt"
+  ],
+  "author": "xiaomanzs",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/message163/xmzs-cli"
+  },
   "devDependencies": {
     "@types/node": "^20.2.5"
   },
