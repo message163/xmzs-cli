@@ -3,6 +3,7 @@ import inquirer from 'inquirer'
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import {exec, execSync} from 'child_process'
+import os from 'node:os'
 
 import fs from 'fs'
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,5 +27,12 @@ inquirer.prompt([
 ]).then(answers => {
     let gitUrl = Type.domestic === answers.url ? 'https://gitee.com/chinafaker/nuxt-demo.git' : 'https://github.com/message163/nuxt-template.git'
     execSync(`git clone -b main ${gitUrl} ${answers.name}`)
-    execSync(`cd ${answers.name} && rd /S/Q .git`)
+    switch (os.platform()) {
+        case 'win32':
+            execSync(`cd ${answers.name} && rd /S/Q .git`)
+            break;
+        default:
+            execSync(`cd ${answers.name} && rm -rf .git`)
+            break;
+    }
 })
